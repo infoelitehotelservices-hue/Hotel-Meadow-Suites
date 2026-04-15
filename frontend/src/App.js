@@ -12,7 +12,6 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import RoomsPage from './pages/RoomsPage';
 import BookNowPage from './pages/BookNow';
 import VerifyAccount from './pages/auth/VerifyAccount';
-import ConfirmBooking from './pages/ConfirmBooking';
 import RoomDetails from './pages/RoomDetail';
 import OfferManager from './pages/admin/Offers';
 import GalleryManager from './pages/admin/Gallery';
@@ -39,6 +38,7 @@ function App() {
 
     {
       path: "/login",
+      // eslint-disable-next-line react/jsx-pascal-case
       element: <Signup_Login />
     },
     {

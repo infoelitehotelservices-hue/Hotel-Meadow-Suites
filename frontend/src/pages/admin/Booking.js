@@ -32,8 +32,6 @@ const ManageBooking = () => {
 
   useEffect(() => { fetchBookings(); }, [fetchBookings]);
 
-  const DATE_FORMAT = "DD-MM-YYYY";
-
   const handleEdit = (record) => {
     setEditingBooking(record);
     setEditModalVisible(true);

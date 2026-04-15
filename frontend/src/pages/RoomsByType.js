@@ -106,7 +106,7 @@ const RoomById = () => {
                   <hr className="border-2" />
                   <div className="info-wrapper">
                     <div className="more">
-                      <a onClick={() => handleNavigate(room._id)} className="link-btn">
+                      <a onClick={() => handleNavigate(room._id)} className="link-btn" style={{background:'none',border:'none',padding:0,cursor:'pointer'}}>
                         Details <i className="ti-arrow-right"></i>
                       </a>
                     </div>

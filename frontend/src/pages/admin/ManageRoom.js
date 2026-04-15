@@ -12,7 +12,6 @@ const ManageRooms = () => {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [fileList, setFileList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [form] = Form.useForm();
 
   // Fetch initial data (rooms, room types, services)
@@ -133,7 +132,6 @@ const ManageRooms = () => {
       alert("Room deleted successfully.");
     } catch (err) {
       message.error("Error deleting room:", err);
-      setError("Failed to delete room.");
     } finally {
       setLoading(false);
     }

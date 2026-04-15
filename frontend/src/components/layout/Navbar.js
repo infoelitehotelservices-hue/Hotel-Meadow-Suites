@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "../../assets/css/navbar.css";
 import { useAuth } from "../../context/Auth";
 import axios from "axios";
@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const API_URL = `${process.env.REACT_APP_API}/api/roomtype`;
 
-  const fetchRoomtypes = async () => {
+  const fetchRoomtypes = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get(`${API_URL}/get-roomtype`);
@@ -27,7 +27,7 @@ const Navbar = () => {
       message.error("Error fetching room types");
     }
     setLoading(false);
-  };
+  }, [API_URL]);
 
   useEffect(() => {
     fetchRoomtypes();
@@ -44,7 +44,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [fetchRoomtypes]);
 
   return (
     <nav className={`navbar navbar-expand-lg ${scrolling ? "nav-scroll" : ""}`}>

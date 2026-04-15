@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Table, Form, Input, Button, message, Modal, Space, Tooltip, Spin, Card } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -13,7 +13,7 @@ const RoomTypeManager = () => {
   const [form] = Form.useForm();
 
   // Fetch all room types
-  const fetchRoomtypes = async () => {
+  const fetchRoomtypes = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get(`${process.env.REACT_APP_API}/api/roomtype/get-roomtype`,
@@ -32,7 +32,7 @@ const RoomTypeManager = () => {
       message.error("Error fetching room types");
     }
     setLoading(false);
-  };
+  }, [token]);
 
   // Add or update a room type
   const handleSubmit = async (values) => {
@@ -101,7 +101,7 @@ const RoomTypeManager = () => {
 
   useEffect(() => {
     fetchRoomtypes();
-  }, []);
+  }, [fetchRoomtypes]);
 
   const columns = [
     {

@@ -12,7 +12,6 @@ const AdminHome = () => {
   const [roomStatusData, setRoomStatusData] = useState([]);
   const [revenueData, setRevenueData] = useState([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
-  const [totalBookings, setTotalBookings] = useState(0);
   const [recentBookings, setRecentBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [occupancyRate, setOccupancyRate] = useState(0);
@@ -59,9 +58,7 @@ const fetchRevenueData = useCallback(async () => {
 
     // Calculate total revenue and bookings
     const totalRev = response.data.reduce((sum, item) => sum + (item.revenue || 0), 0);
-    const totalBook = response.data.reduce((sum, item) => sum + (item.bookings || 0), 0);
     setTotalRevenue(totalRev);
-    setTotalBookings(totalBook);
   } catch (error) {
     message.error('Error fetching revenue data:', error);
   }

@@ -34,8 +34,9 @@ const RoomsPage = () => {
     fetchRooms();
 
     // Initialize select2
-    if (selectRef.current) {
-      $(selectRef.current).select2({
+    const selectEl = selectRef.current;
+    if (selectEl) {
+      $(selectEl).select2({
         minimumResultsForSearch: Infinity,
       });
     }
@@ -55,8 +56,8 @@ const RoomsPage = () => {
 
     // Cleanup on unmount
     return () => {
-      if (selectRef.current) {
-        $(selectRef.current).select2("destroy");
+      if (selectEl) {
+        $(selectEl).select2("destroy");
       }
       $(".datepicker").datepicker("destroy");
     };

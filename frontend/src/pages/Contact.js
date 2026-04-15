@@ -193,7 +193,7 @@ const Contact = () => {
                     <div className="row">
                         <AnimatedBox effect='fadeInUp'>
                         <div className="col-md-12 map">
-                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.1357439163744!2d67.09195439999999!3d24.927445199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f0043d0a2e7%3A0x641a01069608b877!2sMeadows%20Hotel%20and%20Suites%20Gulshan!5e0!3m2!1sen!2s!4v1775729009307!5m2!1sen!2s"                              width="100%"
+                             <iframe title="Meadows Hotel Location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.1357439163744!2d67.09195439999999!3d24.927445199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f0043d0a2e7%3A0x641a01069608b877!2sMeadows%20Hotel%20and%20Suites%20Gulshan!5e0!3m2!1sen!2s!4v1775729009307!5m2!1sen!2s"                              width="100%"
                              height="600"
                              style={{ border: 0 }}
                              allowFullScreen=""

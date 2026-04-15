@@ -3,7 +3,6 @@ import $ from "jquery";
 import "../../assets/css/progressscroll.css"; 
 
 const ScrollToTop = () => {
-    const [progress, setProgress] = useState(0);
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -19,7 +18,6 @@ const ScrollToTop = () => {
                 const height = $(document).height() - $(window).height();
                 const progress = pathLength - (scroll * pathLength / height);
                 progressPath.style.strokeDashoffset = progress;
-                setProgress(progress);
             };
 
             const handleScroll = () => {
