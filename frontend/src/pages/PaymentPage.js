@@ -1,0 +1,139 @@
+import React, { useState } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { message, Upload, Button } from "antd";
+import { UploadOutlined, WarningFilled, CopyOutlined, CheckOutlined } from "@ant-design/icons";
+
+const PaymentPage = () => {
+  const { bookingId } = useParams();
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const token = localStorage.getItem("userToken");
+
+  const [fileList, setFileList] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [copiedField, setCopiedField] = useState(null);
+
+  const handleCopy = (value, field) => {
+    navigator.clipboard.writeText(value);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
+
+  const handleUpload = async () => {
+    if (!fileList.length) return message.error("Please select a file first.");
+
+    const formData = new FormData();
+    formData.append("paymentProof", fileList[0]);
+
+    setUploading(true);
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API}/api/bookings/${bookingId}/payment-proof`,
+        formData,
+        { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } }
+      );
+      message.success("Payment proof uploaded! We will verify and confirm your booking shortly.");
+      navigate("/");
+    } catch (error) {
+      message.error(error.response?.data?.message || "Upload failed. Please try again.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div style={{ maxWidth: 600, margin: "60px auto", padding: "0 20px" }}>
+      <div style={{ background: "#1a1a2e", color: "#D4AF37", padding: "20px 30px", borderRadius: "8px 8px 0 0" }}>
+        <h2 style={{ margin: 0, color: "#D4AF37" }}>Advance Payment</h2>
+      </div>
+
+      <div style={{ border: "1px solid #e0e0e0", borderTop: "none", borderRadius: "0 0 8px 8px", padding: 30 }}>
+        <p style={{ color: "#fffafa" }}>
+          Booking ID: <strong>{bookingId}</strong>
+        </p>
+        {state?.totalAmount && (
+          <>
+            <p style={{ fontSize: 18, fontWeight: "bold" }}>
+              Total Amount: <span style={{ color: "#D4AF37" }}>PKR {state.totalAmount.toFixed(2)}</span>
+            </p>
+            <p style={{ fontSize: 16, fontWeight: "bold" }}>
+              Minimum Advance (10%):{" "}
+              <span style={{ color: "#D4AF37" }}>PKR {(state.totalAmount * 0.1).toFixed(2)}</span>
+            </p>
+          </>
+        )}
+
+        <div style={{ background: "#fff8e1", border: "1px solid #D4AF37", borderRadius: 6, padding: "12px 16px", margin: "16px 0" }}>
+          <p style={{ margin: 0, fontWeight: "bold", color: "#1a1a2e", display: "flex", alignItems: "center", gap: 8 }}>
+            <WarningFilled style={{ color: "#D4AF37", fontSize: 16 }} /> Payment Instructions:
+          </p>
+          <ul style={{ margin: "8px 0 0 0", paddingLeft: 20 }}>
+            <li style={{ fontWeight: "bold", color: "#333", marginBottom: 4 }}>You must pay at least <span style={{ color: "#D4AF37" }}>10% of the total amount</span> as advance to confirm your booking.</li>
+            <li style={{ fontWeight: "bold", color: "#333", marginBottom: 4 }}>Transfer the advance amount to the bank account details below.</li>
+            <li style={{ fontWeight: "bold", color: "#333", marginBottom: 4 }}>Upload a clear screenshot or receipt of your payment proof.</li>
+            <li style={{ fontWeight: "bold", color: "#333" }}>Our team will verify and confirm your booking within 24 hours.</li>
+          </ul>
+        </div>
+
+        <hr />
+
+        <h4 style={{ marginTop: 20 }}>Bank Account Details</h4>
+        <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: 24 }}>
+          <tbody>
+            {[
+              ["Bank Name", "Meezan Bank LTD", false],
+              ["Account Title", "Meadow Suites and hotel", false],
+              ["Account Number", "10550113557328", true],
+              ["IBAN", "PK39 MEZN 0010 5501 1355 7328", true],
+            ].map(([label, value, copyable]) => (
+              <tr key={label} style={{ borderBottom: "1px solid #f0f0f0" }}>
+                <td style={{ padding: "10px 0", color: "#888", width: "40%" }}>{label}</td>
+                <td style={{ padding: "10px 0", fontWeight: "bold" }}>
+                  {value}
+                  {copyable && (
+                    <span
+                      onClick={() => handleCopy(value, label)}
+                      style={{ marginLeft: 10, cursor: "pointer", color: copiedField === label ? "green" : "#D4AF37" }}
+                      title={`Copy ${label}`}
+                    >
+                      {copiedField === label ? <CheckOutlined /> : <CopyOutlined />}
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+  
+
+        <Upload
+          beforeUpload={(file) => {
+            setFileList([file]);
+            return false;
+          }}
+          fileList={fileList}
+          onRemove={() => setFileList([])}
+          accept="image/jpeg,image/png,image/jpg"
+          maxCount={1}
+        >
+          <Button icon={<UploadOutlined />}>Select Payment Proof</Button>
+        </Upload>
+
+        <Button
+          type="primary"
+          onClick={handleUpload}
+          loading={uploading}
+          disabled={!fileList.length}
+          style={{ marginTop: 20, background: "#D4AF37", borderColor: "#D4AF37", color: "#1a1a2e", fontWeight: "bold" }}
+          block
+        >
+          {uploading ? "Uploading..." : "Submit Payment Proof"}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default PaymentPage;

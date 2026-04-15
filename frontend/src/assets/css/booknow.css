@@ -1,0 +1,67 @@
+.booking-inner {
+    position: relative;
+    border-radius: 0;
+}
+
+.book-input1_inner {
+    position: relative;
+    position: relative;
+}
+.book-input1_inner:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 23px;
+    pointer-events: none;
+    /* content: "\e6b6"; */
+    font-family: "themify";
+    font-size: 15px;
+    color: #D4AF37;
+    line-height: 1;
+}
+.book-input1_inner input {
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    padding: 19.5px 40px 20px 19.5px;
+    background: #222;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+.book-input1_inner input::placeholder {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5) !important;
+}
+.book-input1_inner input:focus {
+    outline: none;
+    box-shadow: none;
+    background: #222;
+    color: rgba(255,255,255,0.5) !important;
+}
+.react-datepicker-wrapper{
+    width: 100%;
+    padding-top: 10px;
+}
+.btn-form1-submit:disabled {
+    background: #222;
+    cursor: not-allowed;
+  }
+  
+  .btn-form1-submit:hover:not(:disabled) {
+    background: #c0a238;
+  }
+  
+  .invoice-box {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ecf0f1;
+  }
+.error {
+    color: #e74c3c;
+    margin-top: 10px;
+  }

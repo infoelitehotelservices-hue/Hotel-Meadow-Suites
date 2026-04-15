@@ -1,0 +1,485 @@
+/* ======= Rooms style ======= */
+.rooms2 {
+    position: relative;
+    margin-bottom: 90px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rooms2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.rooms2 figure {
+    margin: 0;
+    position: relative;
+    width: 66.666667%;
+    margin-left: auto;
+    overflow: hidden;
+}
+
+.rooms2.left figure {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.room-image-wrapper {
+    height: 400px; /* Fixed height for consistency */
+    overflow: hidden;
+}
+
+.room-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio */
+    transition: transform 0.3s ease;
+}
+
+.rooms2:hover .room-image {
+    transform: scale(1.05);
+}
+
+.rooms2 .room-caption {
+    background: #222;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 50%;
+    padding: 4% 4% 4% 4%;
+    transform: translate(0, -50%);
+    color: #fff;
+}
+
+.rooms2.left .room-caption {
+    left: auto;
+    right: 0;
+    padding: 4% 0 4% 4%;
+}
+
+.rooms2 .room-caption h4,
+.rooms2 .room-caption h4 a {
+    font-size: 35px;
+    color: #fff;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.rooms2 .room-caption h4 a:hover {
+    color: #D4AF37;
+}
+
+.rooms2 .room-caption h3,
+.rooms2 .room-caption h3 a {
+    font-size: 24px;
+    color: #D4AF37;
+    margin-bottom: 0px;
+}
+
+.rooms2 .room-caption h3 span {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Barlow', sans-serif;
+}
+
+.rooms2 .room-caption .room-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+}
+
+.rooms2 .room-caption .info-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.rooms2 .room-caption .info-wrapper .more {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.rooms2 .room-caption .info-wrapper .more:hover {
+    color: #D4AF37;
+}
+
+.rooms2 .room-caption .info-wrapper .butn-dark a {
+    background: #D4AF37;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.rooms2 .room-caption .info-wrapper .butn-dark a:hover {
+    background: #876b3d;
+}
+
+@media (max-width: 991.98px) {
+    .rooms2 figure {
+        width: 100%;
+        margin: 0;
+    }
+
+    .rooms2 .room-caption {
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 30px 20px;
+        transform: translate(0, 0);
+    }
+
+    .room-section-padding {
+        padding: 150px 0;
+    }
+}
+/* ======= Booking style ======= */
+.booking-wrapper {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 5%;
+    z-index: 5;
+}
+.booking2-wrapper {
+    position: relative;
+    margin-bottom: 40px;
+}
+.booking-inner {
+    position: relative;
+    border-radius: 0;
+}
+.form1 {
+    display: block;
+    padding: 0;
+    position: relative;
+}
+.form1 label {
+    display: none;
+}
+.form1 .col1 {
+    float: left;
+    width: 20%;
+}
+.form1 .col2 {
+    float: left;
+    width: 14%;
+}
+.form1 .col3 {
+    float: left;
+    width: 18%;
+}
+.form1 .c1 {
+    border-right: 1px solid #2b2b2b;
+    height: 62px;
+    margin-bottom: 15px;
+}
+.form1 .c2 {
+    border-right: 1px solid #2b2b2b;
+    height: 62px;
+    margin-bottom: 15px;
+}
+.form1 .c3 {
+    border-right: 1px solid #2b2b2b;
+    height: 62px;
+    margin-bottom: 15px;
+}
+.form1 .c4 {
+    border-right: 1px solid #2b2b2b;
+    height: 62px;
+    margin-bottom: 15px;
+}
+.form1 .c5 {
+    border-right: 1px solid #2b2b2b;
+    height: 62px;
+    margin-bottom: 15px;
+}
+.ui-datepicker .ui-datepicker-header {
+    background: #D4AF37;
+    border: #D4AF37;
+    color: #fff;
+}
+.ui-datepicker {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    background: #222;
+    z-index: 100 !important;
+    border: 1px solid #2b2b2b;
+    border-radius: 0px;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+    border: 1px solid #222;
+    background: #2B2B2B;
+    color: rgba(255,255,255,0.5);
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+    border: 1px solid #D4AF37;
+    background: #D4AF37;
+    font-weight: normal;
+    color: #fff;
+}
+.ui-datepicker .ui-datepicker-prev:after {
+    font-size: 10px;
+    content: "\e64a";
+    font-family: "themify";
+    color: #fff;
+}
+.ui-datepicker .ui-datepicker-next:before {
+    font-size: 10px;
+    content: "\e649";
+    font-family: "themify";
+    color: #fff;
+    float: right;
+}
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover {
+    background: transparent;
+    border: 1px solid transparent;
+}
+.btn-form1-submit {
+    display: block;
+    padding: 0;
+    border: none;
+    margin: 0;
+    width: 100%;
+    background: #D4AF37;
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    text-decoration: none;
+    line-height: 62px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.btn-form1-submit:hover {
+    background: #222;
+}
+.btn-form1-submit:focus {
+    outline: none;
+}
+.btn-form1-submit:after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: inherit;
+}
+.input1_inner {
+    position: relative;
+    position: relative;
+}
+.input1_inner:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 23px;
+    pointer-events: none;
+    content: "\e6b6";
+    font-family: "themify";
+    font-size: 15px;
+    color: #D4AF37;
+    line-height: 1;
+}
+.input1_inner input {
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    padding: 19.5px 40px 20px 19.5px;
+    background: #222;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+.input1_inner input::placeholder {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5) !important;
+}
+.input1_inner input:focus {
+    outline: none;
+    box-shadow: none;
+    background: #222;
+    color: rgba(255,255,255,0.5) !important;
+}
+.select1_wrapper {
+    margin-bottom: 0;
+}
+.select1_inner {
+    position: relative;
+}
+.select1_inner:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    pointer-events: none;
+    content: "\e64b";
+    font-family: "themify";
+    font-size: 10px;
+    color: #D4AF37;
+    font-weight: normal;
+    line-height: 15px;
+}
+.select2 {
+    width: 100%;
+    background: #222;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+}
+.select2 *:focus {
+    outline: none !important;
+}
+.select2-container--default .select2-results > .select2-results__options {
+    max-height: 500px;
+}
+.select2-container--default .select2-selection--single {
+    background: none;
+    border-radius: 0;
+    border: none;
+    height: auto;
+}
+.selection {
+    display: inline-flex;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    font-size: 15px;
+    line-height: 28px;
+    padding: 16px 49px 16px 20px;
+    color: rgba(255,255,255,0.5);
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    display: none;
+}
+.select2-dropdown {
+    background: none;
+    border-radius: 0;
+    z-index: 100;
+    min-width: 0px;
+    border: none;
+}
+.select2-container--open .select2-dropdown--above {
+    border-bottom: 1px solid #2b2b2b;
+}
+.select2-container--open .select2-dropdown--below {
+    border-top: 1px solid #2b2b2b;
+}
+.select2-results__option {
+    padding: 10px 30px;
+    background: #222;
+    font-size: 15px;
+    line-height: 20px;
+    color: rgba(255,255,255,0.5);
+    border-top: 1px solid #2b2b2b;
+    text-align: center;
+}
+.select2-results__option:first-child {
+    border-top: none;
+}
+.small .select2-results__option {
+    padding-left: 0;
+}
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background: #D4AF37;
+    color: #fff;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background: #D4AF37;
+    color: #fff;
+}
+/* responsive */
+@media (max-width: 1259.98px) {
+    .booking2-wrapper {
+        margin-bottom: 30px;
+    }
+}
+@media (max-width: 991.98px) {
+    .booking2-wrapper {
+        margin-bottom: 40px;
+    }
+    .form1 .col1 {
+        width: 50%;
+        border-bottom: 1px solid #2b2b2b;
+    }
+    .form1 .c2 {
+        border-right: none;
+    }
+    .form1 .col2 {
+        width: 25%;
+    }
+    .form1 .col3 {
+        width: 25%;
+    }
+    .booking-wrapper {
+        position: relative;
+        bottom: auto;
+        padding: 30px 0;
+        background: #1b1b1b;
+    }
+}
+@media (max-width: 767.98px) {
+    .form1 .col1 {
+        width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid #2b2b2b;
+    }
+    .form1 .col2 {
+        width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid #2b2b2b;
+    }
+    .form1 .col3 {
+        width: 100%;
+        border-right: 0;
+    }
+    .btn-form1-submit:after {
+        background: none;
+    }
+    .section-padding{
+        margin-bottom: 50px;
+    }
+    .room-section-container{
+        margin-top: 230px;
+    }
+    .section-title{
+       display: none;
+    }
+    .section-subtitle{
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    
+}
+  .amenity-logo
+  {
+    width: 25px;
+    height: 24px;
+  }
+  
+.spacing {
+  display: flex;
+  align-items: center;
+  gap: 18px; /* 👈 best modern way */
+}

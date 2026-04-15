@@ -1,0 +1,89 @@
+/* ======= Facilties style ======= */
+.facilties .single-facility {
+    background: transparent;
+    padding: 30px 20px;
+    -webkit-transition: .5s;
+    transition: .5s;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 30px;
+    line-height: 1;
+    border: 1px solid #2b2b2b;
+}
+.facilties .single-facility h5 {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.facilties .single-facility:hover h5 {
+  color: #fff;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+/*
+.facilties .facility-shape:hover span {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+*/
+/* .single-facility .icon {
+  line-height: 1;
+  font-size: 50px;
+  margin-top: 22px;
+  color: var(--primary-color);
+} */
+
+span > img{
+  width: 80px;
+}
+.facilties .single-facility span {
+  font-size: 45px;
+  color: #D4AF37;
+  line-height: 1;
+  margin-bottom: 20px;
+  display: inline-block;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+.facilties .single-facility p {
+    margin: 0;
+    color: rgba(255,255,255,0.5);
+}
+.facilties .single-facility .facility-shape {
+    position: absolute;
+    opacity: 0.02;
+    z-index: -1;
+    bottom: 15px;
+    left: 120px;
+}
+.facilties .single-facility .facility-shape span {
+  font-size: 140px;
+  color: #222;
+}
+/* hr */
+hr {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,0.25);
+}
+/* room facilities */
+.room-facilities .wrap {
+    background: #222;
+    padding: 30px;
+}
+.room-facilities ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.room-facilities ul li {
+  color: rgba(255,255,255,0.5);
+  font-size: 15px;
+  padding-bottom: 10px;
+}
+.room-facilities ul li i {
+    margin-right: 10px;
+    color: #D4AF37;
+    font-size: 20px;
+}

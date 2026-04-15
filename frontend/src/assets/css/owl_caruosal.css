@@ -1,0 +1,207 @@
+/* ======= Owl-Theme custom style ======= */
+.owl-theme .owl-nav.disabled + .owl-dots {
+    margin-top: 0px;
+    line-height: 1.5;
+    display: block;
+    outline: none;
+}
+.owl-theme .owl-dots .owl-dot span {
+    width: 12px;
+    height: 12px;
+    margin: 0 3px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid #ADADAD;
+}
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+    background: #D4AF37;
+    border: 1px solid #D4AF37;
+}
+
+
+
+
+/* === owl carousel nav style  === */
+.clients .owl-theme .owl-nav,
+.team .owl-theme .owl-nav,
+.slider-grid-bg .owl-theme .owl-nav,
+.news .owl-theme .owl-nav,
+.pricing .owl-theme .owl-nav,
+.testimonials .owl-theme .owl-nav,
+.rooms-page .owl-theme .owl-nav,
+.rooms3 .owl-theme .owl-nav,
+.rooms2 .owl-theme .owl-nav,
+.rooms1 .owl-theme .owl-nav {
+    position: absolute!important;
+    top: 35%!important;
+    bottom: auto!important;
+    width: 100%
+}
+.clients .owl-theme .owl-nav,
+.team .owl-theme .owl-nav,
+.slider-grid-bg .owl-theme .owl-nav,
+.news .owl-theme .owl-nav,
+.pricing .owl-theme .owl-nav,
+.testimonials .owl-theme .owl-nav,
+.rooms-page .owl-theme .owl-nav,
+.rooms3 .owl-theme .owl-nav,
+.rooms2 .owl-theme .owl-nav,
+.rooms1 .owl-theme .owl-nav{
+    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.clients .owl-theme .owl-prev,
+.team .owl-theme .owl-prev,
+.slider-grid-bg .owl-theme .owl-prev,
+.news .owl-theme .owl-prev,
+.pricing .owl-theme .owl-prev,
+.testimonials .owl-theme .owl-prev,
+.rooms-page .owl-theme .owl-prev,
+.rooms3 .owl-theme .owl-prev,
+.rooms2 .owl-theme .owl-prev,
+.rooms1 .owl-theme .owl-prev {
+    left: 10px!important
+}
+.clients .owl-theme .owl-next,
+.team .owl-theme .owl-next,
+.slider-grid-bg .owl-theme .owl-next,
+.news .owl-theme .owl-next,
+.pricing .owl-theme .owl-next,
+.testimonials .owl-theme .owl-next,
+.rooms-page .owl-theme .owl-next,
+.rooms3 .owl-theme .owl-next,
+.rooms2 .owl-theme .owl-next,
+.rooms1 .owl-theme .owl-next {
+    right: 10px!important
+}
+.clients .owl-theme .owl-prev,
+.clients .owl-theme .owl-next,
+.team .owl-theme .owl-prev,
+.team .owl-theme .owl-next,
+.slider-grid-bg .owl-theme .owl-prev,
+.slider-grid-bg .owl-theme .owl-next,
+.news .owl-theme .owl-prev,
+.news .owl-theme .owl-next,
+.pricing .owl-theme .owl-prev,
+.pricing .owl-theme .owl-next,
+.testimonials .owl-theme .owl-prev,
+.testimonials .owl-theme .owl-next,
+.rooms-page .owl-theme .owl-prev,
+.rooms-page .owl-theme .owl-next,
+.rooms3 .owl-theme .owl-prev,
+.rooms3 .owl-theme .owl-next,
+.rooms2 .owl-theme .owl-prev,
+.rooms2 .owl-theme .owl-next,
+.rooms1 .owl-theme .owl-prev,
+.rooms1 .owl-theme .owl-next {
+    color: #fff;
+    position: absolute!important;
+    top: 50%;
+    padding: 0;
+    height: 50px;
+    width: 50px;
+    border-radius: 0%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: #272727;
+    border: 1px solid #272727;
+    line-height: 0;
+    text-align: center;
+    font-size: 16px
+}
+.clients .owl-theme .owl-prev>span,
+.clients .owl-theme .owl-next>span,
+.team .owl-theme .owl-prev>span,
+.team .owl-theme .owl-next>span,
+.slider-grid-bg .owl-theme .owl-prev>span,
+.slider-grid-bg .owl-theme .owl-next>span,
+.news .owl-theme .owl-prev>span,
+.news .owl-theme .owl-next>span,
+.pricing .owl-theme .owl-prev>span,
+.pricing .owl-theme .owl-next>span,
+.testimonials .owl-theme .owl-prev>span,
+.testimonials .owl-theme .owl-next>span,
+.rooms-page .owl-theme .owl-prev>span,
+.rooms-page .owl-theme .owl-next>span,
+.rooms3 .owl-theme .owl-prev>span,
+.rooms3 .owl-theme .owl-next>span,
+.rooms2 .owl-theme .owl-prev>span,
+.rooms2 .owl-theme .owl-next>span,
+.rooms1 .owl-theme .owl-prev>span,
+.rooms1 .owl-theme .owl-next>span {
+    position: absolute;
+    line-height: 0;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%)
+}
+.clients .owl-theme .owl-nav [class*=owl-],
+.team .owl-theme .owl-nav [class*=owl-],
+.slider-grid-bg .owl-theme .owl-nav [class*=owl-],
+.news .owl-theme .owl-nav [class*=owl-],
+.pricing .owl-theme .owl-nav [class*=owl-],
+.testimonials .owl-theme .owl-nav [class*=owl-],
+.rooms-page .owl-theme .owl-nav [class*=owl-],
+.rooms3 .owl-theme .owl-nav [class*=owl-],
+.rooms2 .owl-theme .owl-nav [class*=owl-],
+.rooms1 .owl-theme .owl-nav [class*=owl-] {
+    width: 40px;
+    height: 40px;
+    line-height: 34px;
+    background: transparent;
+    color: #fff;
+    font-size: 11px;
+    margin-right: 15px;
+    margin-left: 15px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255, 0.7);
+    border-radius: 100%;
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.0);
+}
+.clients .owl-theme .owl-nav [class*=owl-]:hover,
+.team .owl-theme .owl-nav [class*=owl-]:hover,
+.slider-grid-bg .owl-theme .owl-nav [class*=owl-]:hover,
+.news .owl-theme .owl-nav [class*=owl-]:hover,
+.pricing .owl-theme .owl-nav [class*=owl-]:hover,
+.testimonials .owl-theme .owl-nav [class*=owl-]:hover,
+.rooms-page .owl-theme .owl-nav [class*=owl-]:hover,
+.rooms3 .owl-theme .owl-nav [class*=owl-]:hover,
+.rooms2 .owl-theme .owl-nav [class*=owl-]:hover,
+.rooms1 .owl-theme .owl-nav [class*=owl-]:hover {
+    transform: scale(0.9);
+    background: transparent;
+    border: 1px solid #b19777;
+    color: #FFF;
+}
+@media screen and (max-width: 768px) {
+    .clients .owl-theme .owl-nav,
+    .team .owl-theme .owl-nav,
+    .slider-grid-bg .owl-theme .owl-nav,
+    .news .owl-theme .owl-nav,
+    .pricing .owl-theme .owl-nav,
+    .testimonials .owl-theme .owl-nav,
+    .rooms-page .owl-theme .owl-nav,
+    .rooms3 .owl-theme .owl-nav,
+    .rooms2 .owl-theme .owl-nav,
+    .rooms1 .owl-theme .owl-nav {
+        display: none;
+    }
+}
+
+
+.news .owl-theme .owl-nav [class*=owl-] {
+    opacity: 0;
+}
+.news .owl-theme:hover .owl-nav [class*=owl-] {
+    opacity: 1;
+}

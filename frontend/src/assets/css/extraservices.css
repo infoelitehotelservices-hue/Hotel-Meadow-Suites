@@ -1,0 +1,72 @@
+/* ======= Pricing style ======= */
+.pricing-card {
+    background-color: #2b2b2b;
+    margin-bottom: 30px;
+    /* height: auto; */
+}
+
+.pricing-card img {
+  width: 100%; /* Ensures the image takes up the full width of the container */
+  height: 100%; /* Ensures uniform height */
+  object-fit: cover; /* Ensures images maintain aspect ratio while covering the container */
+  border-radius: 8px; /* Optional: Adds rounded corners */
+}
+
+/* .pricing-card .desc {
+    padding: 40px;
+} 
+.pricing-card .name {
+    line-height: 1;
+    margin: 0;
+    font-family: 'Gilda Display', serif;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.pricing-card .subname {
+    line-height: 1;
+    margin: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+.pricing-card .amount {
+  margin: 0;
+  line-height: 1;
+ font-family: 'Gilda Display', serif;
+  font-size: 40px;
+  margin-bottom: 20px;
+    color: #D4AF37;
+}
+.pricing-card .amount span {
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+}
+.pricing-card .list {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+}
+.pricing-card .list li {
+  position: relative;
+    font-size: 15px;
+    padding-left: 30px;
+}
+.pricing-card .list li+li {
+  margin-top: 5px;
+}
+.pricing-card .list li i {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: #D4AF37;
+}
+.pricing-card .list li i.unavailable {
+  color: rgba(255,255,255,0.5);
+} */

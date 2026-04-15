@@ -1,0 +1,58 @@
+.room-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .section-subtitle {
+    font-size: 1.2em;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  
+  .section-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .price-section {
+    margin-bottom: 20px;
+  }
+  
+  .room-description {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+  }
+  
+  .amenities-section {
+    margin-top: 30px;
+  }
+  
+  .page-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .page-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .amenity-logo {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .size-capacity-section {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .size-capacity-section .icon {
+    margin-right: 5px;
+    color: #555;
+  }

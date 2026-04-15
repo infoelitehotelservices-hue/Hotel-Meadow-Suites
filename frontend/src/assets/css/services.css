@@ -1,0 +1,115 @@
+.services .img {
+    position: relative;
+      overflow: hidden;
+  }
+  
+  .services .img:hover img {
+      -webkit-filter: none;
+      filter: none;
+      -webkit-transform: scale(1.09, 1.09);
+      transform: scale(1.09, 1.09);
+      -webkit-transition: all 1s ease;
+      -moz-transition: all 1s ease;
+      -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+      transition: all 1s ease;
+  }
+
+  .services .img img {
+      -webkit-transition: all .5s;
+      transition: all .5s;
+  }
+  .services .content {
+    width: 100%;
+    padding: 30px;
+  }
+  .services .content .date {
+    display: table-cell;
+    position: relative;
+    width: 80px;
+    z-index: 2;
+  }
+  .services .content .date h3 {
+      font-size: 65px;
+      font-weight: 500;
+      color: #D4AF37;
+      margin-bottom: 0px;
+  }
+  .services .content .date h6 {
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 2px;
+      font-size: 10px;
+      font-family: 'Barlow', sans-serif;
+      text-transform: uppercase;
+      font-weight: 400;
+  }
+  .services .content .cont {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .services .content .cont h4 {
+      margin: 0 0 10px 0;
+      font-size: 32px;
+      color: #fff;
+      font-weight: 400;
+      line-height: 1.5em;
+  }
+  .services .content .cont .more {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #D4AF37;
+    padding-left: 40px;
+    position: relative;
+  }
+  .services .content .cont .more:after {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: #D4AF37;
+    position: absolute;
+    top: 50%;
+    left: 0px;
+  }
+  .services .content .cont .more:hover {
+     color: #222; 
+  }
+  .services .content .info h6 {
+      font-size: 15px;
+      letter-spacing: 3px;
+      color: #D4AF37;
+      font-family: 'Barlow Condensed', sans-serif;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+  }
+  .services .content .info .tags {
+    color: #D4AF37;
+  }
+  @media screen and (max-width: 991px) {
+      .services .content .cont h4 {
+          line-height: 1.25em;
+      }
+      .order2 {
+      -webkit-box-ordinal-group: 3 !important;
+          -ms-flex-order: 2 !important;
+              order: 2 !important;
+    }
+      .order1 {
+      -webkit-box-ordinal-group: 2 !important;
+          -ms-flex-order: 1 !important;
+              order: 1 !important;
+    }  
+  }
+  @media screen and (max-width: 480px) {
+      .services .content .date {
+      width: 60px;
+    }
+      .services .content .info .tags {
+      margin: 5px 0 0;
+    }
+      .services .content .date h3 {
+      font-size: 40px;
+    }
+  }
+  
