@@ -106,9 +106,9 @@ const RoomById = () => {
                   <hr className="border-2" />
                   <div className="info-wrapper">
                     <div className="more">
-                      <a onClick={() => handleNavigate(room._id)} className="link-btn" style={{background:'none',border:'none',padding:0,cursor:'pointer'}}>
+                      <button onClick={() => handleNavigate(room._id)} className="link-btn" style={{background:'none',border:'none',padding:0,cursor:'pointer' , color : 'GrayText'}}>
                         Details <i className="ti-arrow-right"></i>
-                      </a>
+                      </button>
                     </div>
                     <div className="butn-dark">
                       <Link to={`/book-now/${room._id}`} data-scroll-nav="1">
