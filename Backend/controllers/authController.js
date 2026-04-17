@@ -13,8 +13,8 @@ export const createUser = async (req, res) => {
 
   const minPasswordLength = 8;
 
-  if (req.body.password < minPasswordLength) {
-    return res.status(400).json({ status: false, message: "Password should be alleast" + minPasswordLength + "characters long" });
+  if (req.body.password.length < minPasswordLength) {
+    return res.status(400).json({ status: false, message: "Password should be at least " + minPasswordLength + " characters long" });
   }
 
   try {
