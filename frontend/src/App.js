@@ -28,6 +28,7 @@ import Gallery from './pages/Gallery';
 import PaymentPage from './pages/PaymentPage';
 import RoomTypeManager from './pages/admin/RoomType';
 import TestimonialManager from './pages/admin/Testimonials';
+import WhatsAppFloat from './components/WhatsAppFloat';
 
 function App() {
   const router = createBrowserRouter([
@@ -153,7 +154,10 @@ function App() {
     // }
   ])
   return (
-    <RouterProvider router={router} />
+    <>
+      <RouterProvider router={router} />
+      <WhatsAppFloat />
+    </>
   );
 }
 
