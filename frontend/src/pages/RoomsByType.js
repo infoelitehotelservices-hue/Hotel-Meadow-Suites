@@ -81,7 +81,7 @@ const RoomById = () => {
                 </figure>
                 <div className="room-caption">
                   <h3>
-                    {room.pricePerNight}$ <span>/ Night</span>
+                    {room.pricePerNight}PKR <span>/ Night</span>
                   </h3>
                   <h4>
                     <Link to={`/rooms/${room._id}`}>{room.name}</Link>
