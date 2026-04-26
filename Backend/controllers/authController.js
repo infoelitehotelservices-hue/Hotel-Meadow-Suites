@@ -2,7 +2,7 @@ import User from "../models/userModel.js";
 import CryptoJs from 'crypto-js';
 import jwt from 'jsonwebtoken';
 import generateOtp from '../utils/otp_generator.js';
-import sendEmail from '../utils/smtp_function.js';
+import { sendVerificationEmail } from '../utils/smtp_function.js';
 
 export const createUser = async (req, res) => {
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -33,8 +33,8 @@ export const createUser = async (req, res) => {
       otp: otp
     })
     await newUser.save();
-    sendEmail(newUser.email, otp);
-    res.status(201).json({ status: true, message: "Account Successfully created." });
+    await sendVerificationEmail(newUser.email, otp);
+    res.status(201).json({ status: true, message: "Account Successfully created.", email: newUser.email });
   } catch (error) {
     res.status(500).json({ status: false, message: error.message });
   }

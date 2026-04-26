@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../../assets/css/authform.css'
 import { resetPassword } from "../../services/api";
 import Preloader from "../../components/ui/Preloader";
 import Navbar from "../../components/layout/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 
 const ResetPassword = () => {
-  const [form, setForm] = useState({ email: "", otp: "", newPassword: "" });
-  const [message, setMessage] = useState("");
+  const location = useLocation();
   const navigate = useNavigate();
+  const [form, setForm] = useState({ email: location.state?.email || "", otp: "", newPassword: "" });
+  const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (!location.state?.email) {
+      navigate('/forget-password');
+    }
+  }, [location.state, navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -46,6 +55,7 @@ const ResetPassword = () => {
               id="email"
               name="email"
               placeholder="Enter your email"
+              value={form.email}
               onChange={handleChange}
               required />
           </div>
@@ -56,19 +66,27 @@ const ResetPassword = () => {
               id="otp"
               name="otp"
               placeholder="Enter OTP"
+              value={form.otp}
               onChange={handleChange}
               required />
           </div>
-          <div className="input-group">
+          <div className="input-group password-group">
             <label htmlFor="newPassword">New Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="newPassword"
               name="newPassword"
               placeholder="Enter new password (min. 8 characters)"
               minLength={8}
+              value={form.newPassword}
               onChange={handleChange}
               required />
+            <span
+              className="eye-icon"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <RxEyeOpen/> : <RxEyeClosed/>}
+            </span>
           </div>
           <button className="btn" type="submit">Reset Password</button>
         </form>

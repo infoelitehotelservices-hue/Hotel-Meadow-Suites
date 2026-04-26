@@ -74,7 +74,7 @@ const Signup_Login = () => {
       if (response.data.status) {
         setMessage(response.data.message);
         setTimeout(() => {
-          navigate("/verify-account");
+          navigate("/verify-account", { state: { email: signupForm.email } });
         }, 2000);
       } else {
         setMessage(response.data.message || "Registration failed");

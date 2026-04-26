@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../../assets/css/authform.css'
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { verifyOtp, resendOtp } from "../../services/api";
 import Preloader from "../../components/ui/Preloader";
 import Navbar from "../../components/layout/Navbar";
+import { useAuth } from "../../context/Auth";
 
 const COOLDOWN = 60;
 
 const VerifyAccount = () => {
+  const { login } = useAuth();
+  const location = useLocation();
   const [otp, setOtp] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(location.state?.email || "");
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [cooldown, setCooldown] = useState(0);
@@ -36,7 +39,7 @@ const VerifyAccount = () => {
         setIsSuccess(true);
         setMessage(response.data.message);
         if (response.data.userToken) {
-          localStorage.setItem("userToken", response.data.userToken);
+          login({ userToken: response.data.userToken });
         }
         setTimeout(() => navigate("/"), 2000);
       } else {

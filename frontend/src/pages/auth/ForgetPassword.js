@@ -16,7 +16,7 @@ const ForgotPassword = () => {
       if (response.data.status) {
         setMessage(response.data.message);
         setTimeout(() => {
-          navigate('/reset-password');  
+          navigate('/reset-password', { state: { email } });  
         }, 2000);
       }
     } catch (error) {

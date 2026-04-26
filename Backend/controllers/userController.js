@@ -1,7 +1,7 @@
 import User from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
 import generateOtp from '../utils/otp_generator.js';
-import sendEmail, { sendForgotPasswordEmail } from '../utils/smtp_function.js';
+import { sendVerificationEmail, sendForgotPasswordEmail } from '../utils/smtp_function.js';
 import CryptoJs from 'crypto-js';
 
 export const getUser = async (req, res) => {
@@ -86,7 +86,7 @@ export const resendOtp = async (req, res) => {
     user.otp = otp;
     await user.save();
 
-    await sendEmail(user.email, otp);
+    await sendVerificationEmail(user.email, otp);
 
     res.status(200).json({ status: true, message: "OTP resent successfully" });
   } catch (error) {

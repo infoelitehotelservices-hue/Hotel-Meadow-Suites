@@ -7,7 +7,7 @@ router.get("/" ,verifyTokenAndAuthorization,getUser);
 router.delete("/" ,verifyTokenAndAuthorization,deleteUser);
 router.get("/verify/:otp", verifyAccount);
 router.post("/resend-otp", resendOtp);
-
+router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 router.delete("/:userId", deleteUser);
 
