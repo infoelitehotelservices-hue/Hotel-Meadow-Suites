@@ -14,7 +14,7 @@ const createTransporter = () => nodemailer.createTransport({
 });
 
 export const createBooking = async (req, res) => {
-  const { customerName, number, roomId, checkInDate, checkOutDate, email } = req.body;
+  const { customerName, number, roomId, checkInDate, checkOutDate, email, adults, children, specialRequests } = req.body;
 
   if (!customerName || !email || !roomId || !checkInDate || !checkOutDate || !number) {
     return res.status(400).json({ status: false, message: "Missing required fields" });
@@ -57,6 +57,9 @@ export const createBooking = async (req, res) => {
       room: roomId,
       checkInDate: checkInUTC,
       checkOutDate: checkOutUTC,
+      adults: adults || 1,
+      children: children || 0,
+      specialRequests: specialRequests || "",
       totalAmount,
       bookingStatus: "Pending",
     });

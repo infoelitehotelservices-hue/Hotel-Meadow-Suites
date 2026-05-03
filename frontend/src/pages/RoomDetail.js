@@ -10,6 +10,7 @@ import ScrollToTop from '../components/ui/ProgessScroll';
 import { FaRuler, FaUserFriends } from 'react-icons/fa'; // Icons for size and capacity
 import { useAuth } from '../context/Auth';
 import SEO from '../components/SEO';
+import { message } from 'antd';
 
 const RoomDetails = () => {
   const { id } = useParams(); // Get the room ID from the URL
@@ -42,7 +43,12 @@ const RoomDetails = () => {
   const handleReserveClick = (e) => {
     if (!user) {
       e.preventDefault(); // Prevent the default link behavior
-      navigate(location.state ||'/login'); // Redirect to the login page
+      message.info("Please sign in to make a booking. You'll be redirected back after login.");
+      // Save the intended destination
+      localStorage.setItem('redirectAfterLogin', `/book-now/${room._id}`);
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
     }
     // If the user is logged in, the default behavior will proceed to the booking page
   };
@@ -106,29 +112,86 @@ const RoomDetails = () => {
                 ))}
               </span>
               <div className="section-subtitle">Luxury Hotel</div>
-              <div className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-  {room.name}
-  {/* Display Price in the Same Line */}
-  <span style={{ fontSize: '22px', fontWeight: 'normal', marginLeft: '10px', paddingTop: '12px' }}>
-  {room.discountprice > 0 ? (
-    <>
-      <span style={{ textDecoration: 'line-through', color: '#888', marginRight: '10px' }}>
-        PKR {room.pricePerNight}
-      </span>
-      <span style={{ fontWeight: 'bold' }}>
-        PKR {room.discountprice}
-      </span>
-    </>
-  ) : (
-    <span style={{ fontWeight: 'bold' }}>
-      PKR {room.pricePerNight}
-    </span>
-  )}
-  <span style={{ fontSize: '16px', color: '#666', marginLeft: '5px' }}>
-    per night
-  </span>
-</span>
-</div>
+              
+              {/* Room Name - Primary Heading */}
+              <div className="section-title" style={{ marginBottom: '15px' }}>
+                {room.name}
+              </div>
+              
+              {/* Room Category and Number */}
+              <div style={{ marginBottom: '20px' }}>
+                <p style={{ fontSize: '16px', color: '#D4AF37', marginBottom: '5px' }}>
+                  <strong>Category:</strong> {room.type?.name || 'Standard Room'}
+                </p>
+                <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                  <strong>Room Number:</strong> {room.roomNumber}
+                </p>
+              </div>
+              
+              {/* Pricing - After room details */}
+              <div style={{ 
+                background: 'rgba(212, 175, 55, 0.1)', 
+                border: '1px solid #D4AF37', 
+                borderRadius: '8px',
+                padding: '15px 20px',
+                marginBottom: '30px',
+                display: 'inline-block'
+              }}>
+                {room.discountprice > 0 ? (
+                  <div>
+                    <span style={{ 
+                      textDecoration: 'line-through', 
+                      color: 'rgba(255,255,255,0.5)', 
+                      marginRight: '15px',
+                      fontSize: '18px'
+                    }}>
+                      PKR {room.pricePerNight}
+                    </span>
+                    <span style={{ 
+                      fontWeight: 'bold', 
+                      fontSize: '28px',
+                      color: '#D4AF37'
+                    }}>
+                      PKR {room.discountprice}
+                    </span>
+                    <span style={{ 
+                      fontSize: '16px', 
+                      color: 'rgba(255,255,255,0.7)', 
+                      marginLeft: '8px' 
+                    }}>
+                      / night
+                    </span>
+                    <span style={{
+                      background: '#4CAF50',
+                      color: '#fff',
+                      padding: '4px 10px',
+                      borderRadius: '4px',
+                      fontSize: '12px',
+                      marginLeft: '15px',
+                      fontWeight: 'bold'
+                    }}>
+                      SAVE PKR {room.pricePerNight - room.discountprice}
+                    </span>
+                  </div>
+                ) : (
+                  <div>
+                    <span style={{ 
+                      fontWeight: 'bold', 
+                      fontSize: '28px',
+                      color: '#D4AF37'
+                    }}>
+                      PKR {room.pricePerNight}
+                    </span>
+                    <span style={{ 
+                      fontSize: '16px', 
+                      color: 'rgba(255,255,255,0.7)', 
+                      marginLeft: '8px' 
+                    }}>
+                      / night
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="col-md-8">
               <p className="mb-30">{room.description}</p>

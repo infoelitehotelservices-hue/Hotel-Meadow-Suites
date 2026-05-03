@@ -25,6 +25,36 @@ export const addGallery = async (req, res) => {
     }
   };
 
+// Bulk upload gallery images
+export const bulkAddGallery = async (req, res) => {
+    try {  
+      if (!req.files || req.files.length === 0) {
+        return res.status(400).json({ status: false, message: "At least one image is required" });
+      }
+  
+      const folder = req.query.folder || req.body.folder || "gallery-images";
+      const galleryItems = [];
+  
+      // Create gallery entries for each uploaded image
+      for (const file of req.files) {
+        const gallery = new galleryModel({
+          image: `uploads/${folder}/${file.filename}`,
+        });
+        
+        const savedGallery = await gallery.save();
+        galleryItems.push(savedGallery);
+      }
+  
+      res.status(201).json({ 
+        status: true, 
+        message: `${galleryItems.length} image(s) uploaded successfully`, 
+        gallery: galleryItems 
+      });
+    } catch (error) {
+      res.status(500).json({ status: false, message: error.message });
+    }
+  };
+
 export const fetchGallery = async (req, res) => {
     try {
         const gallery = await galleryModel.find();

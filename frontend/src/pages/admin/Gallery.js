@@ -11,15 +11,19 @@ import {
   Tooltip,
   Spin,
   Card,
+  Progress,
 } from "antd";
-import { UploadOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { UploadOutlined, EditOutlined, DeleteOutlined, InboxOutlined } from "@ant-design/icons";
 import { FaPlusCircle } from "react-icons/fa";
 
 const GalleryManager = () => {
   const [gallery, setGallery] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
   const [editingGallery, setEditingGallery] = useState(null);
+  const [bulkFileList, setBulkFileList] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [form] = Form.useForm();
   const token = localStorage.getItem("userToken");
 
@@ -77,6 +81,56 @@ const GalleryManager = () => {
       message.error("Error saving gallery");
     }
     setLoading(false);
+  };
+
+  // Bulk upload handler
+  const handleBulkUpload = async () => {
+    if (bulkFileList.length === 0) {
+      message.warning("Please select at least one image to upload");
+      return;
+    }
+
+    const formData = new FormData();
+    bulkFileList.forEach((file) => {
+      formData.append("images", file.originFileObj);
+    });
+
+    try {
+      setLoading(true);
+      setUploadProgress(0);
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_API}/api/gallery/bulk-add-gallery?folder=gallery-images`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setUploadProgress(percentCompleted);
+          },
+        }
+      );
+
+      if (response.data.status) {
+        message.success(response.data.message);
+        fetchGallery();
+        setIsBulkModalOpen(false);
+        setBulkFileList([]);
+        setUploadProgress(0);
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      message.error("Error uploading images");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Delete a gallery
@@ -150,15 +204,24 @@ const GalleryManager = () => {
   return (
    
         <><Card title="Gallery Manager" style={{ margin: 20 }} bordered={false}>
-      <Button
-        style={{ backgroundColor: "black", color: "white" }}
-        onClick={() => {
-          setIsModalOpen(true);
-          setEditingGallery(null);
-        } }
-      >
-        Add Gallery Pictures <FaPlusCircle />
-      </Button>
+      <Space style={{ marginBottom: 16 }}>
+        <Button
+          style={{ backgroundColor: "black", color: "white" }}
+          onClick={() => {
+            setIsModalOpen(true);
+            setEditingGallery(null);
+          }}
+        >
+          Add Single Image <FaPlusCircle />
+        </Button>
+        <Button
+          type="primary"
+          style={{ backgroundColor: "#1890ff", color: "white" }}
+          onClick={() => setIsBulkModalOpen(true)}
+        >
+          Bulk Upload Images <UploadOutlined />
+        </Button>
+      </Space>
       {loading ? (
         <Spin style={{ display: "block", marginTop: 20 }} />
       ) : (
@@ -169,18 +232,21 @@ const GalleryManager = () => {
           style={{ marginTop: 20 }}
           bordered />
       )}
-    </Card><Modal
-      title={editingGallery ? "Edit Gallery" : "Add Gallery Pictures"}
+    </Card>
+    
+    {/* Single Image Upload Modal */}
+    <Modal
+      title={editingGallery ? "Edit Gallery" : "Add Gallery Picture"}
       open={isModalOpen}
       onCancel={() => {
         setIsModalOpen(false);
         setEditingGallery(null);
         form.resetFields();
-      } }
+      }}
       footer={null}
     >
         <Form form={form} onFinish={handleSubmit} layout="vertical">
-          <Form.Item name="image" label="image">
+          <Form.Item name="image" label="Image">
             <Upload
               listType="picture"
               beforeUpload={() => false}
@@ -193,7 +259,70 @@ const GalleryManager = () => {
             {editingGallery ? "Update Gallery" : "Add Gallery"}
           </Button>
         </Form>
-      </Modal></>
+      </Modal>
+
+      {/* Bulk Upload Modal */}
+      <Modal
+        title="Bulk Upload Gallery Images"
+        open={isBulkModalOpen}
+        onCancel={() => {
+          setIsBulkModalOpen(false);
+          setBulkFileList([]);
+          setUploadProgress(0);
+        }}
+        footer={[
+          <Button
+            key="cancel"
+            onClick={() => {
+              setIsBulkModalOpen(false);
+              setBulkFileList([]);
+              setUploadProgress(0);
+            }}
+          >
+            Cancel
+          </Button>,
+          <Button
+            key="upload"
+            type="primary"
+            loading={loading}
+            onClick={handleBulkUpload}
+            disabled={bulkFileList.length === 0}
+          >
+            Upload {bulkFileList.length > 0 ? `(${bulkFileList.length} images)` : ''}
+          </Button>,
+        ]}
+        width={600}
+      >
+        <Upload.Dragger
+          multiple
+          listType="picture"
+          fileList={bulkFileList}
+          beforeUpload={() => false}
+          accept="image/*"
+          onChange={({ fileList }) => setBulkFileList(fileList)}
+          onRemove={(file) => {
+            const index = bulkFileList.indexOf(file);
+            const newFileList = bulkFileList.slice();
+            newFileList.splice(index, 1);
+            setBulkFileList(newFileList);
+          }}
+        >
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined style={{ fontSize: 48, color: "#1890ff" }} />
+          </p>
+          <p className="ant-upload-text">Click or drag images to this area to upload</p>
+          <p className="ant-upload-hint">
+            Support for multiple image uploads. You can select up to 50 images at once.
+          </p>
+        </Upload.Dragger>
+        
+        {uploadProgress > 0 && uploadProgress < 100 && (
+          <div style={{ marginTop: 16 }}>
+            <Progress percent={uploadProgress} status="active" />
+          </div>
+        )}
+      </Modal>
+    </>
      
   );
 };

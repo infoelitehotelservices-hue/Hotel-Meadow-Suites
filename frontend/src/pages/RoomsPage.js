@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Navbar from "../components/layout/Navbar";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AnimatedBox from "../components/ui/AnimatedBox";
 import "../assets/css/roomspage.css";
 
@@ -13,14 +13,16 @@ import ScrollToTop from "../components/ui/ProgessScroll";
 import Preloader from "../components/ui/Preloader";
 import { useAuth } from "../context/Auth";
 import SEO from "../components/SEO";
+import { message } from "antd";
 
 const RoomsPage = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-    const { user } = useAuth();
+  const [roomTypes, setRoomTypes] = useState([]);
+  const [selectedRoomType, setSelectedRoomType] = useState("");
+  const { user } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
   // Filter states
   const [checkInDate, setCheckInDate] = useState("");
@@ -29,15 +31,27 @@ const RoomsPage = () => {
 
   // Ref for select2 element
   const selectRef = useRef(null);
+  const roomTypeSelectRef = useRef(null);
 
   useEffect(() => {
     fetchRooms();
+    fetchRoomTypes();
 
     // Initialize select2
     const selectEl = selectRef.current;
     if (selectEl) {
       $(selectEl).select2({
         minimumResultsForSearch: Infinity,
+      });
+    }
+
+    // Initialize room type select2
+    const roomTypeSelectEl = roomTypeSelectRef.current;
+    if (roomTypeSelectEl) {
+      $(roomTypeSelectEl).select2({
+        minimumResultsForSearch: Infinity,
+      }).on('change', function() {
+        setSelectedRoomType($(this).val());
       });
     }
 
@@ -59,21 +73,50 @@ const RoomsPage = () => {
       if (selectEl) {
         $(selectEl).select2("destroy");
       }
+      if (roomTypeSelectEl) {
+        $(roomTypeSelectEl).select2("destroy");
+      }
       $(".datepicker").datepicker("destroy");
     };
   }, []);
 
-  const fetchRooms = async () => {
+  const fetchRooms = async (roomTypeId = null) => {
     try {
       setLoading(true);
-      const response = await axios.get(`${process.env.REACT_APP_API}/api/room/get-room`);
-      setRooms(response.data.rooms);
+      let response;
+      if (roomTypeId) {
+        response = await axios.get(`${process.env.REACT_APP_API}/api/room/rooms/${roomTypeId}`);
+        setRooms(response.data.rooms || []);
+      } else {
+        response = await axios.get(`${process.env.REACT_APP_API}/api/room/get-room`);
+        setRooms(response.data.rooms);
+      }
       setLoading(false);
     } catch (error) {
       setError("Error fetching rooms");
       setLoading(false);
     }
   };
+
+  const fetchRoomTypes = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API}/api/roomtype/get-roomtype`);
+      if (response.data.status) {
+        setRoomTypes(response.data.roomtypes);
+      }
+    } catch (error) {
+      console.error("Error fetching room types:", error);
+    }
+  };
+
+  // Filter rooms by selected room type
+  useEffect(() => {
+    if (selectedRoomType) {
+      fetchRooms(selectedRoomType);
+    } else {
+      fetchRooms();
+    }
+  }, [selectedRoomType]);
 
   const handleFilter = async (e) => {
     e.preventDefault();
@@ -103,10 +146,15 @@ const RoomsPage = () => {
     navigate(`/rooms/${id}`);
   };
 
-  const handleReserveClick = (e) => {
+  const handleReserveClick = (e, roomId) => {
     if (!user) {
       e.preventDefault(); // Prevent the default link behavior
-      navigate(location.state ||'/login'); // Redirect to the login page
+      message.info("Please sign in to make a booking. You'll be redirected back after login.");
+      // Save the intended destination
+      localStorage.setItem('redirectAfterLogin', `/book-now/${roomId}`);
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
     }
     // If the user is logged in, the default behavior will proceed to the booking page
   };
@@ -132,6 +180,27 @@ const RoomsPage = () => {
                   <div className="section-title">Search Rooms</div>
                   <div className="booking-inner clearfix">
                     <form onSubmit={handleFilter} className="form1 clearfix">
+                      <div className="col2 c3">
+                        <div className="select1_wrapper">
+                          <label>Room Type</label>
+                          <div className="select1_inner">
+                            <select
+                              ref={roomTypeSelectRef}
+                              className="select2 select"
+                              style={{ width: "150%" }}
+                              value={selectedRoomType}
+                              onChange={(e) => setSelectedRoomType(e.target.value)}
+                            >
+                              <option value="">All Room Types</option>
+                              {roomTypes.map((type) => (
+                                <option key={type._id} value={type._id}>
+                                  {type.name}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
                       <div className="col1 c1">
                         <div className="input1_wrapper">
                           <label>Check in</label>
@@ -218,7 +287,11 @@ const RoomsPage = () => {
                   <h4>
                     <Link to={`/rooms/${room._id}`}>{room.name}</Link>
                   </h4>
-                  <p className="room-description">{room.description}</p>
+                  <p className="room-description">
+                    {room.description.length > 150 
+                      ? room.description.substring(0, 150) + '...' 
+                      : room.description}
+                  </p>
                   <div className="row room-facilities">
                     {room.amenities.map((amenity, index) => (
                       <div className="col-md-4" key={index}>
@@ -243,7 +316,7 @@ const RoomsPage = () => {
                       </Link>
                     </div>
                     <div className="butn-dark">
-                      <Link to={`/book-now/${room._id}`} onClick={handleReserveClick} data-scroll-nav="1">
+                      <Link to={`/book-now/${room._id}`} onClick={(e) => handleReserveClick(e, room._id)} data-scroll-nav="1">
                         <span>Book Now</span>
                       </Link>
                     </div>

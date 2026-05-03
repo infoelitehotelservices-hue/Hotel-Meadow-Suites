@@ -51,12 +51,39 @@ const Footer = () => {
                                     <h3 className="footer-title">Contact</h3>
                                     <p className="footer-contact-text">A-150 Gulshan e Iqbal Block 3 KDA Market near Flourish Spa & Saloon, Karachi, Pakistan</p>
                                     <div className="footer-contact-info">
-                                        <p className="footer-contact-phone"><span className="flaticon-call"></span> +92 371 1098946</p>
-                                        <p className="footer-contact-mail">info.elitehotelservices@gmail.com </p>
+                                        <p className="footer-contact-phone">
+                                            <span className="flaticon-call"></span> 
+                                            <a 
+                                                href="tel:+923711098946" 
+                                                style={{ color: 'inherit', textDecoration: 'none' }}
+                                            >
+                                                +92 371 1098946
+                                            </a>
+                                        </p>
+                                        <p className="footer-contact-mail">
+                                            <a 
+                                                href="mailto:info.elitehotelservices@gmail.com" 
+                                                style={{ color: 'inherit', textDecoration: 'none' }}
+                                            >
+                                                info.elitehotelservices@gmail.com
+                                            </a>
+                                        </p>
+                                        <p className="footer-contact-whatsapp" style={{ marginTop: '10px' }}>
+                                            <i className="fab fa-whatsapp" style={{ marginRight: '8px', color: '#25D366' }}></i>
+                                            <a 
+                                                href="https://wa.me/923711098946?text=Hello%2C%20I%20would%20like%20to%20inquire%20about%20your%20services" 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                style={{ color: 'inherit', textDecoration: 'none' }}
+                                            >
+                                                WhatsApp Us
+                                            </a>
+                                        </p>
                                     </div>
                                     <div className="footer-about-social-list">
     <a href="https://www.instagram.com/meadowshotelandsuitesgulshan/" target="_blank" rel="noopener noreferrer"><i className="ti-instagram"></i></a>
     <a href="https://www.facebook.com/profile.php?id=61586964809051" target="_blank" rel="noopener noreferrer"><i className="ti-facebook"></i></a>
+    <a href="https://www.linkedin.com/in/meadows-hotel-and-suites-gulshan-534aa93a7/" target="_blank" rel="noopener noreferrer"><i className="ti-linkedin"></i></a>
     <a href="https://www.tiktok.com/@meadowshotelandsuites?lang=en_r=1" target="_blank" rel="noopener noreferrer"><i className="fab fa-tiktok"></i></a>
     <a href="https://www.snapchat.com/add/meadows.hotel" target="_blank" rel="noopener noreferrer"><i className="fab fa-snapchat"></i></a>
     <a href="https://www.youtube.com/@MeadowsHotelSuitesGulshan" target="_blank" rel="noopener noreferrer"><i className="ti-youtube"></i></a>

@@ -44,9 +44,10 @@ const fetchOccupancyRate = async () => {
 const fetchRoomStatus = async () => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_API}/api/room/status`);
-    setRoomStatusData(response.data);
+    setRoomStatusData(Array.isArray(response.data) ? response.data : []);
   } catch (error) {
     message.error('Error fetching room status:', error);
+    setRoomStatusData([]);
   }
 };
 
@@ -54,13 +55,15 @@ const fetchRoomStatus = async () => {
 const fetchRevenueData = useCallback(async () => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_API}/api/bookings/revenue`);
-    setRevenueData(response.data);
+    const data = Array.isArray(response.data) ? response.data : [];
+    setRevenueData(data);
 
     // Calculate total revenue and bookings
-    const totalRev = response.data.reduce((sum, item) => sum + (item.revenue || 0), 0);
+    const totalRev = data.reduce((sum, item) => sum + (item.revenue || 0), 0);
     setTotalRevenue(totalRev);
   } catch (error) {
     message.error('Error fetching revenue data:', error);
+    setRevenueData([]);
   }
 }, []); // Add dependencies if needed
 
@@ -68,9 +71,11 @@ const fetchRevenueData = useCallback(async () => {
 const fetchRecentBookings = async () => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_API}/api/bookings/recent`);
-    setRecentBookings(response.data);
+    // Ensure response.data is an array
+    setRecentBookings(Array.isArray(response.data) ? response.data : []);
   } catch (error) {
     message.error('Error fetching recent bookings:', error);
+    setRecentBookings([]); // Set empty array on error
   }
 };
 
@@ -130,6 +135,14 @@ useEffect(() => {
       title: 'Status',
       dataIndex: 'bookingStatus',
       key: 'bookingStatus',
+      render: (status) => (
+        <span style={{ 
+          color: status === 'Confirmed' ? 'green' : status === 'Pending' ? 'orange' : 'red',
+          fontWeight: 'bold'
+        }}>
+          {status}
+        </span>
+      ),
     },
   ];
 
@@ -209,7 +222,13 @@ useEffect(() => {
       <Card title="Recent Bookings" style={{ marginBottom: '20px' }}>
         <Table
           columns={bookingColumns}
-          dataSource={recentBookings}
+          dataSource={recentBookings.map(booking => ({
+            ...booking,
+            key: booking._id,
+            room: booking.room?.name || 'N/A',
+            checkInDate: new Date(booking.checkInDate).toLocaleDateString(),
+            checkOutDate: new Date(booking.checkOutDate).toLocaleDateString(),
+          }))}
           pagination={{ pageSize: 5 }}
           rowKey="_id"
         />

@@ -52,6 +52,10 @@ const RoomSchema = new mongoose.Schema({
         type: [String], 
         required: true,
     },
+    displayOrder: {
+        type: Number,
+        default: 0,
+    },
   },
   { timestamps: true }
 );

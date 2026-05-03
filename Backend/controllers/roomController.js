@@ -62,7 +62,7 @@ export const checkRoomNumber = async (req, res) => {
 
 export const fetchRooms = async (req, res) => {
   try {
-    const rooms = await roomModel.find().populate('type').populate('amenities');
+    const rooms = await roomModel.find().populate('type').populate('amenities').sort({ displayOrder: 1, createdAt: 1 });
     res.status(200).json({ status: true, rooms });
   } catch (error) {
     console.error(error);
@@ -265,7 +265,7 @@ export const getRoomById =async (req,res) => {
 export const getRoomsByType = async (req, res) => {
     try {
         const { roomTypeId } = req.params; 
-        const rooms = await roomModel.find({ type: roomTypeId }).populate('type').populate('amenities');;
+        const rooms = await roomModel.find({ type: roomTypeId }).populate('type').populate('amenities').sort({ displayOrder: 1, createdAt: 1 });
 
         
         res.status(200).json({ success: true, rooms });
@@ -316,6 +316,28 @@ export const getOccupancyRate = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ occupancyRate: 0 }); // Return 0 in case of error
+  }
+};
+
+export const updateRoomOrder = async (req, res) => {
+  try {
+    const { roomOrders } = req.body; // Array of { roomId, displayOrder }
+
+    if (!roomOrders || !Array.isArray(roomOrders)) {
+      return res.status(400).json({ status: false, message: "Invalid room order data" });
+    }
+
+    // Update each room's displayOrder
+    const updatePromises = roomOrders.map(({ roomId, displayOrder }) =>
+      roomModel.findByIdAndUpdate(roomId, { displayOrder }, { new: true })
+    );
+
+    await Promise.all(updatePromises);
+
+    res.status(200).json({ status: true, message: "Room order updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: false, message: error.message });
   }
 };
 

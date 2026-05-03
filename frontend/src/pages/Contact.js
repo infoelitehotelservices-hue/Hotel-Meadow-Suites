@@ -96,15 +96,40 @@ const Contact = () => {
                             <div className="reservations mb-30">
                                 <div className="icon"><span className="flaticon-call"></span></div>
                                 <div className="text">
-                                    <p>Reservation</p>
-                                    <a href="https://wa.me/923711098946" target="_blank" rel="noopener noreferrer">
-                                    +92 371 1098946</a>
+                                    <p>Call Us</p>
+                                    <a href="tel:+923711098946" style={{ color: '#D4AF37', textDecoration: 'none' }}>
+                                        +92 371 1098946
+                                    </a>
                                 </div>
                             </div>
                             <div className="reservations mb-30">
-                                <div className="icon"><span className="flaticon-envelope"></span></div>
+                                <div className="icon">
+                                    <span className="flaticon-envelope"></span>
+                                </div>
                                 <div className="text">
-                                    <p>Email Info</p> <a href="mailto:info.elitehotelservices@gmail.com">info.elitehotelservices@gmail.com</a>
+                                    <p>Email Info</p>
+                                    <a 
+                                        href="mailto:info.elitehotelservices@gmail.com" 
+                                        style={{ color: '#D4AF37', textDecoration: 'none' }}
+                                    >
+                                        info.elitehotelservices@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="reservations mb-30">
+                                <div className="icon">
+                                    <i className="fab fa-whatsapp" style={{ fontSize: '40px', color: '#25D366' }}></i>
+                                </div>
+                                <div className="text">
+                                    <p>WhatsApp</p>
+                                    <a 
+                                        href="https://wa.me/923711098946?text=Hello%2C%20I%20would%20like%20to%20inquire%20about%20room%20availability" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        style={{ color: '#25D366', textDecoration: 'none' }}
+                                    >
+                                        Chat with us on WhatsApp
+                                    </a>
                                 </div>
                             </div>
                             <div className="reservations">

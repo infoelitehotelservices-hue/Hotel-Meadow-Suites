@@ -41,13 +41,22 @@ const Signup_Login = () => {
       login(response.data); // Store token & user in context
   
       setMessage("Login successful!");
+      
+      // Check for saved redirect path
+      const redirectPath = localStorage.getItem('redirectAfterLogin');
+      
       setTimeout(() => {
         if (user.verification) {
-          navigate(location.state || "/"); // Redirect to homepage if verified
+          if (redirectPath) {
+            localStorage.removeItem('redirectAfterLogin'); // Clear the saved path
+            navigate(redirectPath); // Redirect to saved booking page
+          } else {
+            navigate(location.state || "/"); // Redirect to homepage if verified
+          }
         } else {
           navigate("/verify-account");
           notification.success({
-            message: 'Booking Successful',
+            message: 'Account Created',
             description: `OTP request sent! Please check "${user.email}" for Verification of Account.`,
             icon: <SmileOutlined style={{ color: '#D4AF37' }} />,
             duration : 3000
@@ -73,8 +82,17 @@ const Signup_Login = () => {
       
       if (response.data.status) {
         setMessage(response.data.message);
+        
+        // Check if there's a redirect path saved
+        const redirectPath = localStorage.getItem('redirectAfterLogin');
+        
         setTimeout(() => {
-          navigate("/verify-account", { state: { email: signupForm.email } });
+          navigate("/verify-account", { 
+            state: { 
+              email: signupForm.email,
+              redirectAfterVerification: redirectPath // Pass redirect path to verification page
+            } 
+          });
         }, 2000);
       } else {
         setMessage(response.data.message || "Registration failed");

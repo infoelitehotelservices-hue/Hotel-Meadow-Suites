@@ -4,6 +4,10 @@
     overflow: hidden;
     margin-bottom: 30px;
 }
+.rooms1 .item .position-re {
+    height: 400px;
+    overflow: hidden;
+}
 .rooms1 .item:hover img {
     -webkit-filter: none;
     filter: none;
@@ -20,6 +24,9 @@
     bottom: 0;
 }
 .rooms1 .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     -webkit-transition: all .5s;
     transition: all .5s;
 }

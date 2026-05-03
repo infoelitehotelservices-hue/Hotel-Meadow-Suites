@@ -56,7 +56,7 @@
 .rooms2.left .room-caption {
     left: auto;
     right: 0;
-    padding: 4% 0 4% 4%;
+    padding: 4% 4% 4% 4%;
 }
 
 .rooms2 .room-caption h4,
@@ -89,6 +89,11 @@
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
 }
 
 .rooms2 .room-caption .info-wrapper {

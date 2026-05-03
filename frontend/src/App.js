@@ -29,6 +29,7 @@ import PaymentPage from './pages/PaymentPage';
 import RoomTypeManager from './pages/admin/RoomType';
 import TestimonialManager from './pages/admin/Testimonials';
 import WhatsAppFloat from './components/WhatsAppFloat';
+import BookingConfirmation from './pages/BookingConfirmation';
 
 function App() {
   const router = createBrowserRouter([
@@ -57,6 +58,10 @@ function App() {
     {
       path: "/payment/:bookingId",
       element: <PaymentPage />
+    },
+    {
+      path: "/booking-confirmation/:bookingId",
+      element: <BookingConfirmation />
     },
     {
       path: "/Rooms",

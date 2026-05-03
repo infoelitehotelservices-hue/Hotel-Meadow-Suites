@@ -18,6 +18,7 @@ const VerifyAccount = () => {
   const [cooldown, setCooldown] = useState(0);
   const timerRef = useRef(null);
   const navigate = useNavigate();
+  const redirectAfterVerification = location.state?.redirectAfterVerification;
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -41,7 +42,18 @@ const VerifyAccount = () => {
         if (response.data.userToken) {
           login({ userToken: response.data.userToken });
         }
-        setTimeout(() => navigate("/"), 2000);
+        
+        // Check for redirect path from signup or localStorage
+        const redirectPath = redirectAfterVerification || localStorage.getItem('redirectAfterLogin');
+        
+        setTimeout(() => {
+          if (redirectPath) {
+            localStorage.removeItem('redirectAfterLogin'); // Clear saved path
+            navigate(redirectPath); // Redirect to booking page
+          } else {
+            navigate("/"); // Default to homepage
+          }
+        }, 2000);
       } else {
         setIsSuccess(false);
         setMessage(response.data.message || "OTP verification failed");

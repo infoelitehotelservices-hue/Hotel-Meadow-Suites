@@ -84,23 +84,44 @@ const ManageBooking = () => {
   const statusColor = { Confirmed: "green", Pending: "orange", Cancelled: "red" };
 
   const columns = [
-    { title: "ID", dataIndex: "_id", key: "_id", ellipsis: true },
-    { title: "Room", dataIndex: ["room", "name"], key: "room" },
-    { title: "Name", dataIndex: "customerName", key: "customerName" },
-    { title: "Email", dataIndex: "email", key: "email" },
-    { title: "Phone", dataIndex: "number", key: "number" },
-    { title: "Check-in", key: "checkInDate", render: (_, r) => formatDate(r.checkInDate) },
-    { title: "Check-out", key: "checkOutDate", render: (_, r) => formatDate(r.checkOutDate) },
-    { title: "Amount", dataIndex: "totalAmount", key: "totalAmount", render: (v) => `PKR ${v}` },
+    { title: "ID", dataIndex: "_id", key: "_id", ellipsis: true, width: 150 },
+    { title: "Room", dataIndex: ["room", "name"], key: "room", width: 120 },
+    { title: "Name", dataIndex: "customerName", key: "customerName", width: 150 },
+    { title: "Email", dataIndex: "email", key: "email", width: 180 },
+    { title: "Phone", dataIndex: "number", key: "number", width: 120 },
+    { 
+      title: "Guests", 
+      key: "guests", 
+      width: 100,
+      render: (_, record) => (
+        <div>
+          <div>👤 {record.adults || 1} Adult{(record.adults || 1) > 1 ? 's' : ''}</div>
+          {record.children > 0 && <div>👶 {record.children} Child{record.children > 1 ? 'ren' : ''}</div>}
+        </div>
+      )
+    },
+    { title: "Check-in", key: "checkInDate", render: (_, r) => formatDate(r.checkInDate), width: 110 },
+    { title: "Check-out", key: "checkOutDate", render: (_, r) => formatDate(r.checkOutDate), width: 110 },
+    { title: "Amount", dataIndex: "totalAmount", key: "totalAmount", render: (v) => `PKR ${v}`, width: 100 },
     {
       title: "Status",
       dataIndex: "bookingStatus",
       key: "bookingStatus",
+      width: 100,
       render: (s) => <Tag color={statusColor[s]}>{s}</Tag>,
+    },
+    {
+      title: "Special Requests",
+      dataIndex: "specialRequests",
+      key: "specialRequests",
+      width: 200,
+      ellipsis: true,
+      render: (text) => text || <span style={{ color: "#aaa" }}>None</span>,
     },
     {
       title: "Payment Proof",
       key: "paymentProof",
+      width: 120,
       render: (_, record) =>
         record.paymentProof ? (
           <Button
@@ -121,6 +142,8 @@ const ManageBooking = () => {
     {
       title: "Actions",
       key: "actions",
+      width: 200,
+      fixed: 'right',
       render: (_, record) => (
         <Space>
           {record.bookingStatus === "Pending" && (

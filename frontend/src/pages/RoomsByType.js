@@ -5,6 +5,7 @@ import ScrollToTop from "../components/ui/ProgessScroll";
 import Preloader from "../components/ui/Preloader";
 import AnimatedBox from "../components/ui/AnimatedBox";
 import { message } from "antd";
+import { useAuth } from "../context/Auth";
 
 const RoomById = () => {
   const { roomTypeId } = useParams(); // Get the roomTypeId from URL
@@ -12,6 +13,7 @@ const RoomById = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -35,6 +37,19 @@ const RoomById = () => {
 
   const handleNavigate = (id) => {
     navigate(`/rooms/${id}`);
+  };
+
+  const handleReserveClick = (e, roomId) => {
+    if (!user) {
+      e.preventDefault(); // Prevent the default link behavior
+      message.info("Please sign in to make a booking. You'll be redirected back after login.");
+      // Save the intended destination
+      localStorage.setItem('redirectAfterLogin', `/book-now/${roomId}`);
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
+    }
+    // If the user is logged in, the default behavior will proceed to the booking page
   };
 
 
@@ -86,7 +101,11 @@ const RoomById = () => {
                   <h4>
                     <Link to={`/rooms/${room._id}`}>{room.name}</Link>
                   </h4>
-                  <p className="room-description">{room.description}</p>
+                  <p className="room-description">
+                    {room.description.length > 150 
+                      ? room.description.substring(0, 150) + '...' 
+                      : room.description}
+                  </p>
                   <div className="row room-facilities">
                     {room.amenities.map((amenity, index) => (
                       <div className="col-md-4" key={index}>
@@ -111,7 +130,7 @@ const RoomById = () => {
                       </button>
                     </div>
                     <div className="butn-dark">
-                      <Link to={`/book-now/${room._id}`} data-scroll-nav="1">
+                      <Link to={`/book-now/${room._id}`} onClick={(e) => handleReserveClick(e, room._id)} data-scroll-nav="1">
                         <span>Book Now</span>
                       </Link>
                     </div>

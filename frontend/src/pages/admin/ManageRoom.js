@@ -1,9 +1,62 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Form, Input, InputNumber, Select, Modal, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined, HolderOutlined, SaveOutlined } from "@ant-design/icons";
 import axios from "axios";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 const { Option } = Select;
+
+// Sortable Row Component
+const SortableRow = ({ children, ...props }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: props["data-row-key"] });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    cursor: "move",
+    opacity: isDragging ? 0.5 : 1,
+    backgroundColor: isDragging ? "#f0f0f0" : "white",
+  };
+
+  return (
+    <tr ref={setNodeRef} style={style} {...props}>
+      {React.Children.map(children, (child) => {
+        if (child.key === "sort") {
+          return React.cloneElement(child, {
+            children: (
+              <div {...attributes} {...listeners} style={{ cursor: "grab", padding: "8px" }}>
+                <HolderOutlined style={{ fontSize: "16px", color: "#999" }} />
+              </div>
+            ),
+          });
+        }
+        return child;
+      })}
+    </tr>
+  );
+};
 
 const ManageRooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -12,7 +65,16 @@ const ManageRooms = () => {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [fileList, setFileList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isReordering, setIsReordering] = useState(false);
+  const [hasOrderChanged, setHasOrderChanged] = useState(false);
   const [form] = Form.useForm();
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   // Fetch initial data (rooms, room types, services)
   useEffect(() => {
@@ -136,15 +198,57 @@ const ManageRooms = () => {
       setLoading(false);
     }
   };
-  
 
+  // Handle drag end
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      setRooms((items) => {
+        const oldIndex = items.findIndex((item) => item._id === active.id);
+        const newIndex = items.findIndex((item) => item._id === over.id);
+        const newOrder = arrayMove(items, oldIndex, newIndex);
+        setHasOrderChanged(true);
+        return newOrder;
+      });
+    }
+  };
+
+  // Save room order to backend
+  const saveRoomOrder = async () => {
+    try {
+      setLoading(true);
+      const roomOrders = rooms.map((room, index) => ({
+        roomId: room._id,
+        displayOrder: index + 1,
+      }));
+
+      await axios.put(`${process.env.REACT_APP_API}/api/room/update-room-order`, {
+        roomOrders,
+      });
+
+      message.success("Room order saved successfully!");
+      setHasOrderChanged(false);
+      setIsReordering(false);
+    } catch (error) {
+      message.error("Failed to save room order.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const columns = [
+    ...(isReordering ? [{
+      title: "",
+      key: "sort",
+      width: 50,
+      render: () => null, // Placeholder for drag handle
+    }] : []),
     { title: "Room Name", dataIndex: "name", key: "name" },
     { title: "Room Number", dataIndex: "roomNumber", key: "roomNumber" },
     { title: "Type", dataIndex: ["type", "name"], key: "type" },
     { title: "Status", dataIndex: "status", key: "status" },
-    {
+    ...(!isReordering ? [{
       title: "Actions",
       key: "actions",
       render: (_, record) => (
@@ -154,23 +258,93 @@ const ManageRooms = () => {
           </Button>
           
           <Button
-      danger
-      onClick={() => handleDelete(record._id)}
-    >
-      Delete
-    </Button>
-
+            danger
+            onClick={() => handleDelete(record._id)}
+          >
+            Delete
+          </Button>
         </div>
       ),
-    },
+    }] : []),
   ];
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Manage Rooms</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+        <h1 style={{ margin: 0 }}>Manage Rooms</h1>
+        <div style={{ display: "flex", gap: "10px" }}>
+          {!isReordering ? (
+            <Button type="default" onClick={() => setIsReordering(true)}>
+              Reorder Rooms
+            </Button>
+          ) : (
+            <>
+              <Button
+                type="primary"
+                icon={<SaveOutlined />}
+                onClick={saveRoomOrder}
+                loading={loading}
+                disabled={!hasOrderChanged}
+              >
+                Save Order
+              </Button>
+              <Button
+                onClick={() => {
+                  setIsReordering(false);
+                  setHasOrderChanged(false);
+                  // Refresh rooms to reset order
+                  const fetchRooms = async () => {
+                    const response = await axios.get(`${process.env.REACT_APP_API}/api/room/get-room`);
+                    setRooms(response.data.rooms);
+                  };
+                  fetchRooms();
+                }}
+              >
+                Cancel
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
+
+      {hasOrderChanged && (
+        <div style={{ 
+          background: "#fff3cd", 
+          border: "1px solid #ffc107", 
+          padding: "10px", 
+          borderRadius: "4px", 
+          marginBottom: "15px",
+          color: "#856404"
+        }}>
+          ⚠️ You have unsaved changes. Click "Save Order" to apply the new room order.
+        </div>
+      )}
 
       {/* Table to display rooms */}
-      <Table dataSource={rooms} columns={columns} rowKey="_id" bordered />
+      {isReordering ? (
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={rooms.map((r) => r._id)} strategy={verticalListSortingStrategy}>
+            <Table
+              dataSource={rooms}
+              columns={columns}
+              rowKey="_id"
+              bordered
+              pagination={false}
+              components={{
+                body: {
+                  row: SortableRow,
+                },
+              }}
+            />
+          </SortableContext>
+        </DndContext>
+      ) : (
+        <Table dataSource={rooms} columns={columns} rowKey="_id" bordered />
+      )}
 
       {/* Modal for editing room details */}
       <Modal
