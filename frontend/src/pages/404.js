@@ -18,7 +18,7 @@ const Page404 = () => {
                 </div>
                 <div className="row text-center">
                     <div className="col-md-6 offset-md-3 text-center">
-                        <p>The page you are looking for was moved, removed, renamed or never existed.</p>
+                        <p>The page you are looking for was moved, removed, renamed or never existed</p>
                             <button onClick={()=>navigate('/')} className='btn btn-dark text-white'>Back to Home</button>
                     </div>
                 </div>
