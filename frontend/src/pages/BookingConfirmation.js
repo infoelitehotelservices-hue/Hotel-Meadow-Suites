@@ -1,11 +1,9 @@
-import React from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "antd";
 import { CheckCircleOutlined, HomeOutlined, MailOutlined } from "@ant-design/icons";
 
 const BookingConfirmation = () => {
   const { bookingId } = useParams();
-  const { state } = useLocation();
   const navigate = useNavigate();
 
   return (

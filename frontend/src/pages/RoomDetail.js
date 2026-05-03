@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'; // For making API requests
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'; // For getting the room ID from the URL
+import { Link, useNavigate, useParams } from 'react-router-dom'; // For getting the room ID from the URL
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -19,7 +19,6 @@ const RoomDetails = () => {
   const [error, setError] = useState(null);
   const { user } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
