@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { formatDate } from "../utils/util";
 import '../assets/css/booknow.css';
 import { notification, message } from "antd";
-import { SmileOutlined } from "@ant-design/icons";
+import { SmileOutlined, InfoCircleOutlined, DollarOutlined, ColumnWidthOutlined, UserOutlined } from "@ant-design/icons";
 
 // Reusable Input Field Component
 const InputField = ({ label, type, value, onChange, placeholder, required, error }) => (
@@ -107,9 +107,10 @@ const InvoiceDetails = ({ invoiceDetails, roomDetails }) => {
             fontSize: '13px', 
             marginBottom: '8px',
             display: 'flex',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
-            <span>💰 Discount Applied</span>
+            <span><DollarOutlined style={{ marginRight: '6px' }} />Discount Applied</span>
             <span>-PKR {((pricePerNight - discountedPrice) * nights).toFixed(2)}</span>
           </p>
         )}
@@ -149,7 +150,7 @@ const InvoiceDetails = ({ invoiceDetails, roomDetails }) => {
           alignItems: 'center',
           gap: '6px'
         }}>
-          ℹ️ Cancellation Policy
+          <InfoCircleOutlined /> Cancellation Policy
         </h5>
         <ul style={{ 
           margin: 0, 
@@ -407,9 +408,9 @@ const BookNowPage = () => {
               </p>
               <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap', fontSize: '14px', color: 'rgba(255,255,255,0.8)' }}>
                 {roomDetails.size && (
-                  <span>📏 {roomDetails.size} sq ft</span>
+                  <span><ColumnWidthOutlined style={{ marginRight: '6px' }} />{roomDetails.size} sq ft</span>
                 )}
-                <span>👥 Up to {roomDetails.capacity} guests</span>
+                <span><UserOutlined style={{ marginRight: '6px' }} />Up to {roomDetails.capacity} guests</span>
                 <span style={{ color: '#D4AF37', fontWeight: 'bold' }}>
                   PKR {roomDetails.discountprice || roomDetails.pricePerNight} / night
                 </span>

@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "antd";
-import { CheckCircleOutlined, HomeOutlined, MailOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, HomeOutlined, MailOutlined, PhoneOutlined, FileTextOutlined } from "@ant-design/icons";
 
 const BookingConfirmation = () => {
   const { bookingId } = useParams();
@@ -116,8 +116,8 @@ const BookingConfirmation = () => {
 
             {/* What's Next Section */}
             <div style={{ marginBottom: '30px' }}>
-              <h3 style={{ color: '#D4AF37', fontSize: '18px', marginBottom: '15px' }}>
-                📋 What Happens Next?
+              <h3 style={{ color: '#D4AF37', fontSize: '18px', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <FileTextOutlined /> What Happens Next?
               </h3>
               <div style={{ 
                 background: 'rgba(212, 175, 55, 0.1)', 
@@ -180,11 +180,11 @@ const BookingConfirmation = () => {
               <h4 style={{ color: '#D4AF37', fontSize: '16px', marginBottom: '10px' }}>
                 Need Help?
               </h4>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', margin: '0 0 8px' }}>
-                📞 Phone: <strong style={{ color: '#fff' }}>+92 371 1098946</strong>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', margin: '0 0 8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <PhoneOutlined style={{ color: '#D4AF37' }} /> Phone: <strong style={{ color: '#fff' }}>+92 371 1098946</strong>
               </p>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', margin: 0 }}>
-                ✉️ Email: <strong style={{ color: '#fff' }}>info.elitehotelservices@gmail.com</strong>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '14px', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <MailOutlined style={{ color: '#D4AF37' }} /> Email: <strong style={{ color: '#fff' }}>info.elitehotelservices@gmail.com</strong>
               </p>
             </div>
 

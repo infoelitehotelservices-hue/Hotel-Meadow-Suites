@@ -7,7 +7,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import Navbar from '../components/layout/Navbar';
 import Preloader from '../components/ui/Preloader';
 import ScrollToTop from '../components/ui/ProgessScroll';
-import { FaRuler, FaUserFriends } from 'react-icons/fa'; // Icons for size and capacity
+import { FaRuler, FaUserFriends } from 'react-icons/fa'; 
 import { useAuth } from '../context/Auth';
 import SEO from '../components/SEO';
 import { message } from 'antd';
