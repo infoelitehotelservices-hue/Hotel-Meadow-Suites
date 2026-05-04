@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { message, Upload, Button } from "antd";
-import { UploadOutlined, WarningFilled, CopyOutlined, CheckOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
+import { UploadOutlined, WarningFilled, CopyOutlined, CheckOutlined } from "@ant-design/icons";
 
 const PaymentPage = () => {
   const { bookingId } = useParams();
